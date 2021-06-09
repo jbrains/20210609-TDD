@@ -48,15 +48,26 @@ public class AddFractionsTest {
         Assertions.assertEquals(new Fraction(19, 24), sum);
     }
 
+    public static class CreateFractionsTest {
+        @Test
+        void zeroDenominator() throws Exception {
+            Assertions.assertThrows(
+                    IllegalArgumentException.class,
+                    () -> new Fraction(5, 0));
+        }
+    }
     public static class Fraction {
         private int numerator;
         private int denominator;
 
         public Fraction(final int integerValue) {
-            this(integerValue, 0);
+            this(integerValue, 1);
         }
 
         public Fraction(final int numerator, final int denominator) {
+            if (denominator == 0)
+                throw new IllegalArgumentException("The denominator of a Fraction can't be 0.");
+
             this.numerator = numerator;
             this.denominator = denominator;
         }
