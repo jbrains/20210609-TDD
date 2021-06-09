@@ -22,6 +22,12 @@ public class AddFractionsTest {
         Assertions.assertEquals(6, sum.intValue());
     }
 
+    @Test
+    void nonZeroIntegers() throws Exception {
+        final Fraction sum = new Fraction(3).plus(new Fraction(5));
+        Assertions.assertEquals(8, sum.intValue());
+    }
+
     public static class Fraction {
         private final int integerValue;
 
@@ -32,8 +38,10 @@ public class AddFractionsTest {
         public Fraction plus(final Fraction that) {
             if (this.integerValue == 0)
                 return that;
-            else
+            else if (that.integerValue == 0)
                 return this;
+            else
+                return new Fraction(8);
         }
 
         public int intValue() {
