@@ -65,14 +65,9 @@ public class AddFractionsTest {
         }
 
         public Fraction plus(final Fraction that) {
-            if (this.denominator == that.denominator)
-                return new Fraction(
-                        this.numerator * that.denominator + this.denominator * that.numerator,
-                        this.denominator * that.denominator);
-            else
-                return new Fraction(
-                        this.numerator * that.denominator + this.denominator * that.numerator,
-                        this.denominator * that.denominator);
+            return new Fraction(
+                    this.numerator * that.denominator + this.denominator * that.numerator,
+                    this.denominator * that.denominator);
         }
 
         @Override
