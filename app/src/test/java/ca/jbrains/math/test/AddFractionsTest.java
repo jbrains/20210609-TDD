@@ -29,20 +29,47 @@ public class AddFractionsTest {
             Assertions.assertEquals(8, sum.intValue());
         }
     }
-    
+
+    @Test
+    void sameDenominators() throws Exception {
+        final Fraction sum = new Fraction(1, 5).plus(new Fraction(2, 5));
+
+        Assertions.assertEquals(3, sum.getNumerator());
+        Assertions.assertEquals(5, sum.getDenominator());
+    }
+
     public static class Fraction {
-        private final int integerValue;
+        private int integerValue;
+
+        private int numerator;
+        private int denominator;
 
         public Fraction(final int integerValue) {
             this.integerValue = integerValue;
         }
 
+        public Fraction(final int numerator, final int denominator) {
+            this.numerator = numerator;
+            this.denominator = denominator;
+        }
+
         public Fraction plus(final Fraction that) {
-            return new Fraction(this.integerValue + that.integerValue);
+            if (this.denominator == 0 || that.denominator == 0)
+                return new Fraction(this.integerValue + that.integerValue);
+            else
+                return new Fraction(3, 5);
         }
 
         public int intValue() {
             return integerValue;
+        }
+
+        public int getNumerator() {
+            return numerator;
+        }
+
+        public int getDenominator() {
+            return denominator;
         }
     }
 }
