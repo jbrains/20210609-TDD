@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 public class AddFractionsTest {
     @Test
     void zeroPlusZero() throws Exception {
-        Assertions.assertEquals(new Fraction(0), new Fraction(0).plus(new Fraction(0)));
+        final Fraction sum = new Fraction(0).plus(new Fraction(0));
+        Assertions.assertEquals(0, sum.intValue());
     }
 
     public static class Fraction {
@@ -15,6 +16,10 @@ public class AddFractionsTest {
 
         public Fraction plus(final Fraction that) {
             return new Fraction(0);
+        }
+
+        public int intValue() {
+            return -9237;
         }
     }
 }
