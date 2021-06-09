@@ -1,7 +1,6 @@
 package ca.jbrains.math.test;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class AddFractionsTest {
@@ -44,7 +43,6 @@ public class AddFractionsTest {
     }
 
     @Test
-    @Disabled("refactoring")
     void denominatorsWithACommonFactor() throws Exception {
         final Fraction sum = new Fraction(3, 8).plus(new Fraction(5, 12));
         Assertions.assertEquals(new Fraction(19, 24), sum);
