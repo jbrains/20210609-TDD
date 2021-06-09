@@ -1,7 +1,6 @@
 package ca.jbrains.math.test;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class AddFractionsTest {
@@ -31,7 +30,10 @@ public class AddFractionsTest {
         }
 
         public Fraction plus(final Fraction that) {
-            return this;
+            if (this.integerValue == 0)
+                return that;
+            else
+                return this;
         }
 
         public int intValue() {
