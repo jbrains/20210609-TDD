@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Enumeration;
+
 public class AddFractionsTest {
     public static class BackwardsCompatibleWithIntegers {
         @Test
@@ -64,6 +66,7 @@ public class AddFractionsTest {
         private int denominator;
 
         public Fraction(final int integerValue) {
+            this(integerValue, 0);
             this.integerValue = integerValue;
         }
 
