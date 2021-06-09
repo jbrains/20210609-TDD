@@ -19,7 +19,7 @@ public class AddFractionsTest {
         }
 
         public int intValue() {
-            return -9237;
+            return 0;
         }
     }
 }
