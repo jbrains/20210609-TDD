@@ -50,7 +50,6 @@ public class AddFractionsTest {
         Assertions.assertEquals(new Fraction(19, 24), sum);
     }
 
-
     public static class Fraction {
         private int numerator;
         private int denominator;
