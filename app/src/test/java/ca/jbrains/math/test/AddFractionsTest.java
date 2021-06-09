@@ -1,6 +1,7 @@
 package ca.jbrains.math.test;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class AddFractionsTest {
@@ -11,6 +12,7 @@ public class AddFractionsTest {
     }
 
     @Test
+    @Disabled("refactoring")
     void notZeroPlusZero() throws Exception {
         final Fraction sum = new Fraction(4).plus(new Fraction(0));
         Assertions.assertEquals(4, sum.intValue());
