@@ -10,6 +10,7 @@ public class AddFractionsTest {
         void zeroPlusZero() throws Exception {
             final Fraction sum = new Fraction(0).plus(new Fraction(0));
             Assertions.assertEquals(0, sum.intValue());
+            Assertions.assertEquals(new Fraction(0), sum);
         }
 
         @Test
