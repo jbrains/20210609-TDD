@@ -1,0 +1,15 @@
+1/8 + 3/8 = 1/2 -- express the answer the lowest terms
+1/8 + 3/8 = 4/8
+1/5 + 2/5 = 3/5 -- same denominators
+5/0 = Nothing -- division by zero -- constructor -> Maybe Fraction
+2/3 + 1/3 = Fraction(1) -- integer fractions look like integers
+backwards compatibility with int/Integer/FixNum
+- 2 + 4 = 6
+- 0 + 4 = 4
+- 2 + 0 = 2
+- 0 + 0 = 0
+2/3 + 1/2 = 7/6 (and not 1 1/6?) -- improper fractions or mixed fractions?
+null + 1/2 = ?
+3/4 + 3/8 = 9/8
+5/8 + 1/12 = 17/24
+
