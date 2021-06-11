@@ -64,11 +64,14 @@ public class SellOneItemTest {
             if ("".equals(barcode)) {
                 displayEmptyBarcodeMessage();
             }
-            else if (pricesByBarcode.containsKey(barcode)) {
-                displayPrice(findPrice(barcode));
-            }
             else {
-                displayProductNotFoundMessage(barcode);
+                final String price = findPrice(barcode);
+                if (price == null) {
+                    displayProductNotFoundMessage(barcode);
+                }
+                else {
+                    displayPrice(price);
+                }
             }
         }
 
