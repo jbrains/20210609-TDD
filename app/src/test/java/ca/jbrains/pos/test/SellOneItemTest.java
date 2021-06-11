@@ -63,41 +63,41 @@ public class SellOneItemTest {
         public void onBarcode(final String barcode) {
             // REFACTOR Guard Clause. Move up the call stack.
             if ("".equals(barcode)) {
-                displayEmptyBarcodeMessage();
+                display.displayEmptyBarcodeMessage();
                 return;
             }
 
             final String price = findPrice(barcode);
             if (price == null) {
-                displayProductNotFoundMessage(barcode);
+                display.displayProductNotFoundMessage(barcode);
             }
             else {
-                displayPrice(price);
+                display.displayPrice(price);
             }
-        }
-
-        private void displayPrice(final String priceAsText) {
-            display.text = priceAsText;
         }
 
         private String findPrice(final String barcode) {
             return pricesByBarcode.get(barcode);
         }
-
-        private void displayEmptyBarcodeMessage() {
-            display.text = "Scanning error: empty barcode";
-        }
-
-        private void displayProductNotFoundMessage(final String barcode) {
-            display.text = "Product not found: " + barcode;
-        }
     }
 
     public static class Display {
-        public String text;
+        private String text;
 
         public String getText() {
             return text;
+        }
+
+        public void displayPrice(final String priceAsText) {
+            text = priceAsText;
+        }
+
+        public void displayEmptyBarcodeMessage() {
+            text = "Scanning error: empty barcode";
+        }
+
+        public void displayProductNotFoundMessage(final String barcode) {
+            text = "Product not found: " + barcode;
         }
     }
 }
