@@ -10,9 +10,9 @@ public class SellOneItemTest {
     @Test
     void productFound() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new HashMap() {{
+        final Sale sale = new Sale(display, new Catalog(new HashMap() {{
             put("12345", "EUR 7.50");
-        }});
+        }}));
 
         sale.onBarcode("12345");
 
@@ -22,9 +22,9 @@ public class SellOneItemTest {
     @Test
     void anotherProductFound() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new HashMap() {{
+        final Sale sale = new Sale(display, new Catalog(new HashMap() {{
             put("23456", "EUR 12.95");
-        }});
+        }}));
 
         sale.onBarcode("23456");
 
@@ -34,7 +34,7 @@ public class SellOneItemTest {
     @Test
     void productNotFound() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new HashMap());
+        final Sale sale = new Sale(display, new Catalog(new HashMap()));
 
         sale.onBarcode("99999");
 
@@ -44,7 +44,7 @@ public class SellOneItemTest {
     @Test
     void emptyBarcode() throws Exception {
         final Display display = new Display();
-        final Sale sale = new Sale(display, new HashMap());
+        final Sale sale = new Sale(display, new Catalog(new HashMap()));
 
         sale.onBarcode("");
 
@@ -53,11 +53,11 @@ public class SellOneItemTest {
 
     public static class Sale {
         private final Display display;
-        private final Map<String, String> pricesByBarcode;
+        private final Catalog catalog;
 
-        public Sale(final Display display, final Map pricesByBarcode) {
+        public Sale(final Display display, final Catalog catalog) {
             this.display = display;
-            this.pricesByBarcode = pricesByBarcode;
+            this.catalog = catalog;
         }
 
         public void onBarcode(final String barcode) {
@@ -67,17 +67,13 @@ public class SellOneItemTest {
                 return;
             }
 
-            final String price = findPrice(barcode);
+            final String price = catalog.findPrice(barcode);
             if (price == null) {
                 display.displayProductNotFoundMessage(barcode);
             }
             else {
                 display.displayPrice(price);
             }
-        }
-
-        private String findPrice(final String barcode) {
-            return pricesByBarcode.get(barcode);
         }
     }
 
