@@ -3,6 +3,9 @@ package ca.jbrains.pos.test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SellOneItemTest {
     @Test
     void productFound() throws Exception {
@@ -52,12 +55,15 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(final String barcode) {
+            final Map<String, String> pricesByBarcode = new HashMap() {{
+                put("12345", "EUR 7.50");
+                put("23456", "EUR 12.95");
+            }};
+
             if ("".equals(barcode))
                 display.text = "Scanning error: empty barcode";
-            else if ("12345".equals(barcode))
-                display.text = "EUR 7.50";
-            else if ("23456".equals(barcode))
-                display.text = "EUR 12.95";
+            else if (pricesByBarcode.containsKey(barcode))
+                display.text = pricesByBarcode.get(barcode);
             else
                 display.text = "Product not found: " + barcode;
         }
