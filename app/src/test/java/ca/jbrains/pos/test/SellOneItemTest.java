@@ -61,17 +61,18 @@ public class SellOneItemTest {
         }
 
         public void onBarcode(final String barcode) {
+            // REFACTOR Guard Clause. Move up the call stack.
             if ("".equals(barcode)) {
                 displayEmptyBarcodeMessage();
+                return;
+            }
+
+            final String price = findPrice(barcode);
+            if (price == null) {
+                displayProductNotFoundMessage(barcode);
             }
             else {
-                final String price = findPrice(barcode);
-                if (price == null) {
-                    displayProductNotFoundMessage(barcode);
-                }
-                else {
-                    displayPrice(price);
-                }
+                displayPrice(price);
             }
         }
 
