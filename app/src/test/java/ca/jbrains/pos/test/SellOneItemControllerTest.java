@@ -39,9 +39,8 @@ public class SellOneItemControllerTest {
 
     @Test
     void emptyBarcode() throws Exception {
-        final Catalog catalog = Mockito.mock(Catalog.class);
         final Display display = Mockito.mock(Display.class);
-        final SellOneItemController sellOneItemController = new SellOneItemController(catalog, display);
+        final SellOneItemController sellOneItemController = new SellOneItemController(null, display);
 
         sellOneItemController.onBarcode("");
 
@@ -53,7 +52,8 @@ public class SellOneItemControllerTest {
         private final Display display;
 
         public SellOneItemController(final Catalog catalog, final Display display) {
-            this.catalog = catalog;this.display = display;
+            this.catalog = catalog;
+            this.display = display;
         }
 
         public void onBarcode(final String barcode) {
