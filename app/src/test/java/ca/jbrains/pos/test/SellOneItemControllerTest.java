@@ -13,14 +13,15 @@ public class SellOneItemControllerTest {
         final Display display = Mockito.mock(Display.class);
         final SellOneItemController sellOneItemController = new SellOneItemController(catalog, display);
 
+        final Price matchingPrice = Price.inCents(795);
         // Stub = Fake
         // lambda expressions = 1-method interface = Delegate (C#), we can write findPrice = \ignored -> 795
-        when(catalog.findPrice("12345")).thenReturn(795);
+        when(catalog.findPrice("12345")).thenReturn(matchingPrice);
 
         sellOneItemController.onBarcode("12345");
 
         // Method expectation = assert method was invoked/called
-        verify(display).displayPrice(795);
+        verify(display).displayPrice(matchingPrice);
     }
 
     public static class SellOneItemController {
@@ -37,11 +38,17 @@ public class SellOneItemControllerTest {
         }
     }
 
+    public static class Price {
+        public static Price inCents(int cents) {
+            return new Price();
+        }
+    }
+
     public interface Catalog {
-        int findPrice(String barcode);
+        Price findPrice(String barcode);
     }
 
     public interface Display {
-        void displayPrice(int priceInCents);
+        void displayPrice(Price priceInCents);
     }
 }
