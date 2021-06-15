@@ -1,5 +1,6 @@
 package ca.jbrains.pos.test;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -23,6 +24,15 @@ public class InterpretCommandsFromConsoleTest {
         interpretCommands(controller, new StringReader(""));
 
         Mockito.verifyNoInteractions(controller);
+    }
+
+    @Test
+    void severalCommandsWithNoTrailingLineSeparator() throws Exception {
+        interpretCommands(controller, new StringReader("::command 1::\n::command 2::\n::command 3::"));
+
+        Mockito.verify(controller).onCommand("::command 1::");
+        Mockito.verify(controller).onCommand("::command 2::");
+        Mockito.verify(controller).onCommand("::command 3::");
     }
 
     private void interpretCommands(final Controller controller, final StringReader commandSource) throws IOException {
