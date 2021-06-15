@@ -2,7 +2,9 @@ package ca.jbrains.pos.test;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.mockito.internal.verification.api.VerificationInOrderMode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,9 +33,10 @@ public class InterpretCommandsFromConsoleTest {
     void severalCommandsWithNoTrailingLineSeparator() throws Exception {
         interpretCommands(controller, new StringReader("::command 1::\n::command 2::\n::command 3::"));
 
-        Mockito.verify(controller).onCommand("::command 1::");
-        Mockito.verify(controller).onCommand("::command 2::");
-        Mockito.verify(controller).onCommand("::command 3::");
+        final InOrder checkCommandOrder = Mockito.inOrder(controller);
+        checkCommandOrder.verify(controller).onCommand("::command 1::");
+        checkCommandOrder.verify(controller).onCommand("::command 2::");
+        checkCommandOrder.verify(controller).onCommand("::command 3::");
     }
 
     private void interpretCommands(final Controller controller, final StringReader commandSource) throws IOException {
