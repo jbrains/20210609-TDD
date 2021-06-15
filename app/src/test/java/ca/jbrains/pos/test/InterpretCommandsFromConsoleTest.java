@@ -1,15 +1,14 @@
 package ca.jbrains.pos.test;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
-import org.mockito.internal.verification.api.VerificationInOrderMode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.List;
 
 public class InterpretCommandsFromConsoleTest {
 
@@ -34,9 +33,8 @@ public class InterpretCommandsFromConsoleTest {
         interpretCommands(controller, new StringReader("::command 1::\n::command 2::\n::command 3::"));
 
         final InOrder checkCommandOrder = Mockito.inOrder(controller);
-        checkCommandOrder.verify(controller).onCommand("::command 1::");
-        checkCommandOrder.verify(controller).onCommand("::command 2::");
-        checkCommandOrder.verify(controller).onCommand("::command 3::");
+        Arrays.asList("::command 1::", "::command 2::", "::command 3::")
+                .stream().forEachOrdered(checkCommandOrder.verify(controller)::onCommand);
     }
 
     private void interpretCommands(final Controller controller, final StringReader commandSource) throws IOException {
