@@ -3,6 +3,7 @@ package ca.jbrains.pos.test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,13 @@ public class FindPriceInMemoryCatalogTest {
             put("12345", matchingPrice);
         }});
         Assertions.assertEquals(matchingPrice, catalog.findPrice("12345"));
+    }
+
+    @Test
+    void noMatchingPrice() throws Exception {
+        final InMemoryCatalog catalog = new InMemoryCatalog(Collections.emptyMap());
+
+        Assertions.assertEquals(null, catalog.findPrice("12345"));
     }
 
     public static class InMemoryCatalog {
