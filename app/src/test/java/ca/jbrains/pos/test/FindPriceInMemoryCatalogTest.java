@@ -12,7 +12,7 @@ public class FindPriceInMemoryCatalogTest {
     void matchingPrice() throws Exception {
         final Price matchingPrice = Price.inCents(138);
 
-        final InMemoryCatalog catalog = new InMemoryCatalog(new HashMap<String, Price>() {{
+        final InMemoryCatalog catalog = new InMemoryCatalog(new HashMap<>() {{
             put("12345", matchingPrice);
         }});
         Assertions.assertEquals(matchingPrice, catalog.findPrice("12345"));
