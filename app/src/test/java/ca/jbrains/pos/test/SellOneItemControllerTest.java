@@ -81,7 +81,7 @@ public class SellOneItemControllerTest {
     }
 
     public interface Display {
-        void displayPrice(Price priceInCents);
+        void displayPrice(Price price);
 
         void displayProductNotFoundMessage(String missingBarcode);
 
