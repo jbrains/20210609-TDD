@@ -70,12 +70,6 @@ public class SellOneItemControllerTest {
         }
     }
 
-    public static class Price {
-        public static Price inCents(int cents) {
-            return new Price();
-        }
-    }
-
     public interface Catalog {
         Price findPrice(String barcode);
     }
