@@ -33,7 +33,7 @@ public class FindPriceInMemoryCatalogTest {
         return new InMemoryCatalog(Collections.emptyMap());
     }
 
-    public static class InMemoryCatalog {
+    public static class InMemoryCatalog implements Catalog {
         private final Map<String, Price> pricesByBarcode;
 
         public InMemoryCatalog(final Map<String, Price> pricesByBarcode) {
