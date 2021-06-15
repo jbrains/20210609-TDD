@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.stream.Stream;
 
 public class InterpretCommandsFromConsoleTest {
 
@@ -36,8 +37,6 @@ public class InterpretCommandsFromConsoleTest {
     }
 
     private void interpretCommands(final Controller controller, final StringReader commandSource) throws IOException {
-        final String commandText = new BufferedReader(commandSource).readLine();
-        if (commandText != null)
-            controller.onCommand(commandText);
+        new BufferedReader(commandSource).lines().forEachOrdered(controller::onCommand);
     }
 }
