@@ -8,16 +8,26 @@ import java.io.IOException;
 import java.io.StringReader;
 
 public class InterpretCommandsFromConsoleTest {
+
+    private Controller controller = Mockito.mock(Controller.class);
+
     @Test
     void oneCommand() throws Exception {
-        final Controller controller = Mockito.mock(Controller.class);
-
         interpretCommands(controller, new StringReader("12345"));
 
         Mockito.verify(controller).onCommand("12345");
     }
 
+    @Test
+    void zeroCommands() throws Exception {
+        interpretCommands(controller, new StringReader(""));
+
+        Mockito.verifyNoInteractions(controller);
+    }
+
     private void interpretCommands(final Controller controller, final StringReader commandSource) throws IOException {
-        controller.onCommand(new BufferedReader(commandSource).readLine());
+        final String commandText = new BufferedReader(commandSource).readLine();
+        if (commandText != null)
+            controller.onCommand(commandText);
     }
 }
