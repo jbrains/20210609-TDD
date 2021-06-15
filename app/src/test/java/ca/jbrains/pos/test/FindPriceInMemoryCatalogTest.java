@@ -1,36 +1,27 @@
 package ca.jbrains.pos.test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FindPriceInMemoryCatalogTest {
-    @Test
-    void matchingPrice() throws Exception {
-        final Price matchingPrice = Price.inCents(138);
+public class FindPriceInMemoryCatalogTest extends FindPriceInCatalogContract {
 
-        final Catalog catalog = catalogWith("12345", matchingPrice);
-        Assertions.assertEquals(matchingPrice, catalog.findPrice("12345"));
-    }
-
-    private Catalog catalogWith(final String barcode, final Price matchingPrice) {
+    @Override
+    protected Catalog catalogWith(final String barcode, final Price matchingPrice) {
         final InMemoryCatalog catalog = new InMemoryCatalog(new HashMap<>() {{
+            put("not " + barcode, Price.inCents(237));
             put(barcode, matchingPrice);
+            put("certainly not " + barcode, Price.inCents(238));
         }});
         return catalog;
     }
 
-    @Test
-    void noMatchingPrice() throws Exception {
-        final Catalog catalog = catalogWithout("12345");
-        Assertions.assertEquals(null, catalog.findPrice("12345"));
-    }
-
-    private Catalog catalogWithout(final String missingBarcode) {
-        return new InMemoryCatalog(Collections.emptyMap());
+    @Override
+    protected Catalog catalogWithout(final String missingBarcode) {
+        return new InMemoryCatalog(new HashMap() {{
+            put("not " + missingBarcode, Price.inCents(237));
+            put("certainly not " + missingBarcode, Price.inCents(238));
+            put("I told you not to put " + missingBarcode + " in here!", Price.inCents(239));
+        }});
     }
 
     public static class InMemoryCatalog implements Catalog {
